@@ -1,7 +1,7 @@
 python-telegram-bot==21.4
 python-dotenv>=1.0.1
 requests>=2.32.3
-gigachat==0.3.16
+gigachat>=0.1.40
 openai>=1.40.0
 google-generativeai>=0.7.2
 pytest>=7.0
