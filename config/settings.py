@@ -31,6 +31,13 @@ class TTSConfig:
     FORMAT: str = "mp3"
 
 
+# === Конфигурация LLM (выбор провайдера) ===
+@dataclass
+class LLMConfig:
+    PROVIDER: str = os.getenv("LLM_PROVIDER", "gigachat")  
+    # варианты: "gigachat", "openai", "gemini", "deepseek"
+
+
 # === Сообщения об ошибках ===
 @dataclass
 class ErrorMessages:
@@ -45,15 +52,15 @@ class Config:
     bot: BotConfig = field(default_factory=BotConfig)
     gigachat: GigaChatConfig = field(default_factory=GigaChatConfig)
     tts: TTSConfig = field(default_factory=TTSConfig)
+    llm: LLMConfig = field(default_factory=LLMConfig)
     errors: ErrorMessages = field(default_factory=ErrorMessages)
 
     def validate(self):
-        """Проверка обязательных параметров"""
         if not self.bot.TOKEN:
             raise ValueError("TELEGRAM_BOT_TOKEN не задан")
         if not self.gigachat.AUTH_KEY:
             raise ValueError("GIGACHAT_AUTH_KEY не задан")
 
 
-# === Глобальный объект конфигурации ===
+# === Глобальный объект ===
 config = Config()
