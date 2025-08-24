@@ -5,3 +5,5 @@ gigachat==0.3.16
 openai>=1.40.0
 google-generativeai>=0.7.2
 pytest>=7.0
+pytest-mock>=3.13.0
+pytest-cov>=6.0.0
