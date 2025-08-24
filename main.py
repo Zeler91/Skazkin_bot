@@ -4,6 +4,9 @@
 import logging
 import signal
 import sys
+import threading
+import web_server  # импортируем мини-сервер
+import os
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, filters
 
 from config.settings import config
@@ -70,6 +73,13 @@ def main():
         # Очистка ресурсов
         gigachat_service.cleanup()
 
+def run_web_server():
+    web_server.app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+
 if __name__ == "__main__":
+    # Запускаем сервер в отдельном потоке
+    threading.Thread(target=run_web_server, daemon=True).start()
+    
+    # Запускаем бота
     main()
 
